@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "connectString": "postgres://kroubdbp:XrHR2NG9cv8szq92-7GpOLgkIPQcHkUN@hansken.db.elephantsql.com/kroubdbp",
+            "name": "Shohas_Car_Dealership"
+        }
+    ]
+}
