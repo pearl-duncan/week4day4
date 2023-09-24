@@ -24,6 +24,7 @@ INSERT INTO customer(
     '(444) 444-4444',
     '456 Real St, Conway, AR'
 );
+SELECT * FROM car;
 
 INSERT INTO car(
     car_modle,
@@ -45,6 +46,11 @@ INSERT INTO car(
     'Prius',
     2018,
     'black'
+),(
+    'Honda',
+    'Accord',
+    2012,
+    'silver'
 );
 
 INSERT INTO salesperson(
@@ -82,30 +88,92 @@ INSERT INTO parts(
     150,
     'Every car has four wheels. The black part of the wheel, which is made out of rubber with air inside, is called a tire. Theyre where your tires are actually attached. The inner part of your car tire is attached to the rim. Youll often hear people use rims and wheels interchangeably, whereas decorative wheels are called rims. Some people may also say tire, when they actually mean wheel.'
 );
---this is where i stopped
+--RUN MECHANIC FIRST!
+SELECT * FROM serv_mechanic;
+INSERT INTO serv_mechanic(
+    hours_worked,
+    comment,
+    part_id,
+    mechanic_id
+) VALUES(
+    3.50,
+    'changed out transmission',
+    1,
+    1
+), (
+    2.00,
+    'changed out catalytic converter',
+    3,
+    2
+), (
+    2.25,
+    'changed out battery',
+    2,
+    3
+);
+SELECT * FROM mechanic;
+--USE STORRED FUNCTION FOR THIS 
 INSERT INTO mechanic(
     first_name,
     last_name,
-    hours_worked,
-    rate,
-    comment,
-    part_id
+    rate
 ) VALUES(
     'Brian',
     'Addams',
-    3,
-    35,
-    'changed out battery',
-    --do i put foriegn key????? is ddl or dml or pdf the schema?
-    --ask how to insert from stored function
-)
+    35.00
+), (
+    'Greg',
+    'Forman',
+    25.00
+), (
+    'Josh',
+    'Reems',
+    30.00
+);
 
-INSERT INTO invoice(
-    salesperson_id INTEGER, --?^
-    customer_id INTEGER,--?^
-    mechanic_id INTEGER,--?^
-    car_id INTEGER,--?^
+INSERT INTO sales_invoice(
+    salesperson_id,
+    customer_id,
+    car_id,
     car_total,
+    quote
+) VALUES(
+
+);
+
+INSERT INTO service_invoice(
+    mechanic_id,
+    customer_id,
+    car_id,
     parts_total,
     quote
-)
+) VALUES(
+
+);
+
+--STORED FUNCTION (STILL HAVE TO CREATE TABLE)
+
+CREATE OR REPLACE FUNCTION create_mechanic(
+    _first_name VARCHAR(50),
+    _last_name VARCHAR(50),
+    _rate NUMERIC(7,2)
+) 
+RETURNS void AS 
+$$
+BEGIN
+    INSERT INTO mechanic(
+        first_name,
+        last_name,
+        rate
+    ) VALUES(
+        _first_name,
+        _last_name,
+        _rate
+    )
+END
+$$
+LANGUAGE plpgsql;
+
+
+CALL create_mechanic('Bob', 'Smith', 25.00)
+
